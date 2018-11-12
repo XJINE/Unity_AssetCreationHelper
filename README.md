@@ -13,12 +13,13 @@ You can import this asset from UnityPackage.
 There is no sample in this repository. If you need any sample, please check some another asset.
 
 
-| Function                             | Abstract   |
-| ------------------------------------ | ---------- |
-| CreateAssetInCurrentDirectory        | Create asset in current ``Project/Assets`` dir.                    |
-| GetCurrentAssetDirectoryPathAbsolute | Get current directory absolute path in ``Project/Assets`` dir.     | 
-| GetCurrentAssetDirectoryPathRelative | Get current directory relative path in ``Project/Assets`` dir.     |
-| StartToRenameAsset                   | Start to rename specified asset.                                   |
-| FocusAsset                           | Focus specified asset without any animation like a ``PingObject``. |
+| Function                             | About                                                               |
+| ------------------------------------ | ------------------------------------------------------------------- |
+| CreateAssetInCurrentDirectory        | Create asset in current ``Project/Assets`` dir.                     |
+| GetCurrentAssetDirectoryPathAbsolute | Get current directory absolute path in ``Project/Assets`` dir.      | 
+| GetCurrentAssetDirectoryPathRelative | Get current directory relative path in ``Project/Assets`` dir.      |
+| CorrectAssetNameToAvoidOverwrite     | Rename asset with suffix number if it is needed to avoid overwrite. |
+| StartToRenameAsset                   | Start to rename specified asset.                                    |
+| FocusAsset                           | Focus specified asset without any animation like a ``PingObject``.  |
 
 ``FocusAsset`` is quite difficult to realize with default Unity library. This function use reflection.
