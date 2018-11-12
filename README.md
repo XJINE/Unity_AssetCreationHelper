@@ -12,6 +12,7 @@ You can import this asset from UnityPackage.
 
 There is no sample in this repository. If you need any sample, please check some another asset.
 
+- https://github.com/XJINE/Unity_MenuItemCreateText
 
 | Function                             | About                                                               |
 | ------------------------------------ | ------------------------------------------------------------------- |
