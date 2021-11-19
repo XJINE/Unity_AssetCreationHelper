@@ -9,11 +9,11 @@ public static class AssetCreationHelper
 {
     #region Field
 
-    private static Assembly     UnityEditor;
-    private static System.Type  ProjectBrowser;
-    private static System.Type  ProjectWindowUtil;
-    private static EditorWindow ProjectWindow;
-    private static MethodInfo   FrameObjectInProjectWindow;
+    private static readonly Assembly     UnityEditor;
+    private static readonly System.Type  ProjectBrowser;
+    private static readonly System.Type  ProjectWindowUtil;
+    private static readonly EditorWindow ProjectWindow;
+    private static readonly MethodInfo   FrameObjectInProjectWindow;
 
     #endregion Field
 
@@ -21,15 +21,15 @@ public static class AssetCreationHelper
 
     static AssetCreationHelper()
     {
-        AssetCreationHelper.UnityEditor       = Assembly.Load("UnityEditor");
-        AssetCreationHelper.ProjectBrowser    = AssetCreationHelper.UnityEditor.GetType("UnityEditor.ProjectBrowser");
-        AssetCreationHelper.ProjectWindow     = EditorWindow.GetWindow(AssetCreationHelper.ProjectBrowser);
-        AssetCreationHelper.ProjectWindowUtil = AssetCreationHelper.UnityEditor.GetType("UnityEditor.ProjectWindowUtil");
-        AssetCreationHelper.FrameObjectInProjectWindow =
-        AssetCreationHelper.ProjectWindowUtil.GetMethod("FrameObjectInProjectWindow",
-                                                      BindingFlags.NonPublic |
-                                                      BindingFlags.Instance  |
-                                                      BindingFlags.Static);
+        UnityEditor       = Assembly.Load("UnityEditor");
+        ProjectBrowser    = UnityEditor.GetType("UnityEditor.ProjectBrowser");
+        ProjectWindow     = EditorWindow.GetWindow(ProjectBrowser);
+        ProjectWindowUtil = UnityEditor.GetType("UnityEditor.ProjectWindowUtil");
+
+        FrameObjectInProjectWindow = ProjectWindowUtil.GetMethod("FrameObjectInProjectWindow",
+                                                                 BindingFlags.NonPublic |
+                                                                 BindingFlags.Instance  |
+                                                                 BindingFlags.Static);
     }
 
     #endregion Constructor
@@ -48,7 +48,7 @@ public static class AssetCreationHelper
 
     private static string CreateAssetInCurrentDirectory<T>(object asset, string nameWithExtension, bool overwrite)
     {
-        string path = GetCurrentAssetDirectoryPathRelative() + "/" + nameWithExtension;
+        var path = GetCurrentAssetDirectoryPathRelative() + "/" + nameWithExtension;
 
         if (!overwrite)
         {
@@ -73,11 +73,11 @@ public static class AssetCreationHelper
 
     public static string GetCurrentAssetDirectoryPathAbsolute()
     {
-        string path = Application.dataPath;
+        var path = Application.dataPath;
 
-        foreach (Object asset in Selection.GetFiltered(typeof(Object), SelectionMode.Assets))
+        foreach (var asset in Selection.GetFiltered(typeof(Object), SelectionMode.Assets))
         {
-            string tempPath = AssetDatabase.GetAssetPath(asset);
+            var tempPath = AssetDatabase.GetAssetPath(asset);
 
             if (System.IO.File.Exists(path))
             {
@@ -98,9 +98,9 @@ public static class AssetCreationHelper
         // this function returns absolute path.
         // "AssetDatabase.CreateAsset()" will be failed if the path is absolute path.
 
-        string path = "Assets";
+        var path = "Assets";
 
-        foreach (Object asset in Selection.GetFiltered(typeof(Object), SelectionMode.Assets))
+        foreach (var asset in Selection.GetFiltered(typeof(Object), SelectionMode.Assets))
         {
             path = AssetDatabase.GetAssetPath(asset);
 
@@ -119,13 +119,12 @@ public static class AssetCreationHelper
         // NOTE:
         // This assetPath has extension.
 
-        string tempPath  = "";
-        string suffixNum = "";
-        string extension = System.IO.Path.GetExtension(assetPath);
-               assetPath = assetPath.Remove(assetPath.Length - extension.Length, extension.Length);
+        var suffixNum = "";
+        var extension = System.IO.Path.GetExtension(assetPath);
+            assetPath = assetPath.Remove(assetPath.Length - extension.Length, extension.Length);
 
-        Regex regex = new Regex(@"(?<assetPath>) (?<suffixNum>\d+)");
-        Match match = regex.Match(assetPath);
+        var regex = new Regex(@"(?<assetPath>) (?<suffixNum>\d+)");
+        var match = regex.Match(assetPath);
 
         if (match.Success)
         {
@@ -135,7 +134,7 @@ public static class AssetCreationHelper
 
         while (true)
         {
-            tempPath = assetPath + (string.IsNullOrEmpty(suffixNum) ? "" : " " + suffixNum) + extension;
+            var tempPath = assetPath + (string.IsNullOrEmpty(suffixNum) ? "" : " " + suffixNum) + extension;
 
             if (!System.IO.File.Exists(tempPath))
             {
@@ -166,7 +165,7 @@ public static class AssetCreationHelper
         Selection.activeObject = asset;
         EditorUtility.FocusProjectWindow();
         FocusAsset(asset);
-        AssetCreationHelper.ProjectWindow.SendEvent(Event.KeyboardEvent(KeyCode.F2.ToString()));
+        ProjectWindow.SendEvent(Event.KeyboardEvent(KeyCode.F2.ToString()));
     }
 
     public static void FocusAsset(Object asset)
@@ -174,8 +173,7 @@ public static class AssetCreationHelper
         // NOTE:
         // https://github.com/Unity-Technologies/UnityCsReference/blob/master/Editor/Mono/ProjectWindow/ProjectWindowUtil.cs
 
-        AssetCreationHelper.FrameObjectInProjectWindow.Invoke
-        (AssetCreationHelper.ProjectWindow, new object[] { asset.GetInstanceID() });
+        FrameObjectInProjectWindow.Invoke(ProjectWindow, new object[] { asset.GetInstanceID() });
     }
 
     #endregion Method
