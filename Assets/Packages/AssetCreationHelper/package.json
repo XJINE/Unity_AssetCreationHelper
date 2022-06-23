@@ -1,7 +1,7 @@
 {
     "name"       : "com.xjine.asset_creation_helper",
     "displayName": "Asset Creation Helper", 
-    "version"    : "1.0.0",
+    "version"    : "1.0.1",
     "unity"      : "2021.3",
     "description": "AssetCreationHelper.cs provides some functions to create asset in your Unity/Assets dir.",
     "author"     :

@@ -4,14 +4,12 @@ using UnityEditor;
 using UnityEngine;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Object = UnityEngine.Object;
 
 public static class AssetCreationHelper
 {
     #region Field
 
-    private static readonly Assembly     UnityEditor;
-    private static readonly System.Type  ProjectBrowser;
-    private static readonly System.Type  ProjectWindowUtil;
     private static readonly EditorWindow ProjectWindow;
     private static readonly MethodInfo   FrameObjectInProjectWindow;
 
@@ -21,12 +19,12 @@ public static class AssetCreationHelper
 
     static AssetCreationHelper()
     {
-        UnityEditor       = Assembly.Load("UnityEditor");
-        ProjectBrowser    = UnityEditor.GetType("UnityEditor.ProjectBrowser");
-        ProjectWindow     = EditorWindow.GetWindow(ProjectBrowser);
-        ProjectWindowUtil = UnityEditor.GetType("UnityEditor.ProjectWindowUtil");
-
-        FrameObjectInProjectWindow = ProjectWindowUtil.GetMethod("FrameObjectInProjectWindow",
+        var unityEditor       = Assembly.Load("UnityEditor");
+        var projectBrowser    = unityEditor.GetType("UnityEditor.ProjectBrowser");
+        var projectWindowUtil = unityEditor.GetType("UnityEditor.ProjectWindowUtil");
+        
+        ProjectWindow              = EditorWindow.GetWindow(projectBrowser);
+        FrameObjectInProjectWindow = projectWindowUtil.GetMethod("FrameObjectInProjectWindow",
                                                                  BindingFlags.NonPublic |
                                                                  BindingFlags.Instance  |
                                                                  BindingFlags.Static);
