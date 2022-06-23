@@ -6,8 +6,6 @@
 
 You can import this asset from UnityPackage.
 
-- [AssetCreationHelper.unitypackage](https://github.com/XJINE/Unity_AssetCreationHelper/blob/master/AssetCreationHelper.unitypackage)
-
 ## How to Use
 
 There is no sample in this repository. If you need any sample, please check some another asset.
