@@ -2,9 +2,13 @@
 
 ``AssetCreationHelper.cs`` provides some functions to create asset in your ``Unity/Assets`` dir.
 
-## Import to Your Project
+## Importing
 
-You can import this asset from UnityPackage.
+You can use Package Manager or import it directly.
+
+```
+https://github.com/XJINE/Unity_AssetCreationHelper.git?path=Assets/Packages/AssetCreationHelper
+```
 
 ## How to Use
 
