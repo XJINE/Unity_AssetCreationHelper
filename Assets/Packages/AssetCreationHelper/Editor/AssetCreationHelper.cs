@@ -1,6 +1,4 @@
-﻿#if UNITY_EDITOR
-
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -176,5 +174,3 @@ public static class AssetCreationHelper
 
     #endregion Method
 }
-
-#endif // UNITY_EDITOR

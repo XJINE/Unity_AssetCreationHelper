@@ -12,10 +12,6 @@ https://github.com/XJINE/Unity_AssetCreationHelper.git?path=Assets/Packages/Asse
 
 ## How to Use
 
-There is no sample in this repository. If you need any sample, please check some another asset.
-
-- https://github.com/XJINE/Unity_MenuItemCreateText
-
 | Function                             | About                                                               |
 | ------------------------------------ | ------------------------------------------------------------------- |
 | CreateAssetInCurrentDirectory        | Create asset in current ``Project/Assets`` dir.                     |
@@ -26,3 +22,7 @@ There is no sample in this repository. If you need any sample, please check some
 | FocusAsset                           | Focus specified asset without any animation like a ``PingObject``.  |
 
 ``FocusAsset`` is quite difficult to realize with default Unity library. This function use reflection.
+
+There is no sample in this repository. If you need any sample, please check some another asset.
+
+- https://github.com/XJINE/Unity_CreateTextMenu
